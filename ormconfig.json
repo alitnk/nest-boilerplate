@@ -1,0 +1,7 @@
+{
+    "migrationsTableName": "migrations",
+    "migrations": ["migration/*.js"],
+    "cli": {
+        "migrationsDir": "migration"
+    }
+}
