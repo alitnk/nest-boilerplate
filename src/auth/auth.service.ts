@@ -4,14 +4,26 @@ import { compare as bcCompare, hash as bcHash } from 'bcrypt';
 import { RegisterUserInput } from 'src/auth/dto/register-user.input';
 import { JwtService } from '@nestjs/jwt';
 import { UserWithToken } from './dto/user-with-token-object';
+import { User } from 'src/user/entities/user.entity';
 
+export interface UserJwt {
+  id: number;
+  username: string;
+}
+
+const getUserJwtFields = ({ id, username }: User): UserJwt => {
+  return {
+    id,
+    username,
+  };
+};
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
   ) {}
-  async register(registerUserInput: RegisterUserInput) {
+  async register(registerUserInput: RegisterUserInput): Promise<UserWithToken> {
     const hashedPassword = await bcHash(registerUserInput.password, 10);
 
     const user = await this.userService.create({
@@ -21,7 +33,7 @@ export class AuthService {
 
     return {
       ...user,
-      token: this.jwtService.sign({ id: user.id, username: user.username }),
+      token: this.jwtService.sign(getUserJwtFields(user)),
     };
   }
 
