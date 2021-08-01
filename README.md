@@ -1,4 +1,4 @@
-Graphql - Postgres - Passport.js
+Graphql - Postgres - TypeORM - Passport.js
 
 ## Installation
 
