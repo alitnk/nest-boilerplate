@@ -19,8 +19,8 @@ type Mutation {
 }
 
 type Query {
-  currentUser: User!
   user(id: Int!): User!
+  whoAmI: User!
 }
 
 input RegisterUserInput {

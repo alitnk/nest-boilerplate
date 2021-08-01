@@ -23,8 +23,7 @@ export class AuthResolver {
 
   @UseGuards(JwtAuthGuard)
   @Query(() => User)
-  currentUser(@CurrentUser() user: User) {
-    console.log(user);
+  whoAmI(@CurrentUser() user: User) {
     return user;
   }
 }
